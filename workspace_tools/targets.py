@@ -271,7 +271,7 @@ class NUCLEO_F103RB(Target):
         
         self.supported_toolchains = ["ARM", "uARM", "GCC_ARM"]
         
-        
+
 class MBED_MCU(Target):
     def __init__(self):
         Target.__init__(self)
@@ -338,6 +338,17 @@ class nRF51822(Target):
         self.supported_toolchains = ["ARM"]
 
 
+class TM4C123(Target):
+    def __init__(self):
+        Target.__init__(self)
+        
+        self.core = "Cortex-M4F"
+        
+        self.extra_labels = []
+        
+        self.supported_toolchains = ["ARM", "GCC_ARM"]
+
+
 # Get a single instance for each target
 TARGETS = [
     LPC2368(),
@@ -359,7 +370,8 @@ TARGETS = [
     LPC1114(),
     LPC11C24(),
     LPC11U35_401(),
-    nRF51822()
+    nRF51822(),
+    TM4C123()
 ]
 
 # Map each target name to its unique instance
