@@ -12,6 +12,8 @@
 #ifndef TM4C123_H
 #define TM4C123_H
 
+#define TM4C123GH6PM
+
 #if defined(TM4C1230C3PM)
   #include "TM4C1230C3PM.h"
 #elif defined(TM4C1230D5PM)
