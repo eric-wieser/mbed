@@ -344,7 +344,7 @@ class TM4C123(Target):
         
         self.core = "Cortex-M4F"
         
-        self.extra_labels = []
+        self.extra_labels = ['TI']
         
         self.supported_toolchains = ["ARM", "GCC_ARM"]
 
