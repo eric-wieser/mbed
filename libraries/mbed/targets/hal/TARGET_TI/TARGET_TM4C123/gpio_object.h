@@ -27,11 +27,14 @@ typedef struct {
 } gpio_t;
 
 static inline void gpio_write(gpio_t *obj, int value) {
-    obj->regs->DATA = obj->mask;
+    if(value)
+        obj->regs->DATA |= obj->mask;
+    else
+        obj->regs->DATA &= ~obj->mask;
 }
 
 static inline int gpio_read(gpio_t *obj) {
-    return ((obj->regs->DATA & obj->mask) ? 1 : 0);
+    return (obj->regs->DATA & obj->mask) ? 1 : 0;
 }
 
 #ifdef __cplusplus
