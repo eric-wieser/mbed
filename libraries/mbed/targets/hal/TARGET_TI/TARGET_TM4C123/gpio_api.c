@@ -32,8 +32,15 @@ void gpio_init(gpio_t *obj, PinName pin, PinDirection direction) {
     obj->mask = gpio_set(pin);
 
     uint32_t port_index = (uint32_t) pin >> 3;
-    
-    obj->regs = (GPIOA_Type *)(GPIOA_BASE + (port_index << 12));
+
+    switch(port_index) {
+        case PortA: obj->regs = GPIOA; break;
+        case PortB: obj->regs = GPIOB; break;
+        case PortC: obj->regs = GPIOC; break;
+        case PortD: obj->regs = GPIOD; break;
+        case PortE: obj->regs = GPIOE; break;
+        case PortF: obj->regs = GPIOF; break;
+    }
 
     gpio_dir(obj, direction);
 
