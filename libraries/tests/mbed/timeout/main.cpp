@@ -5,10 +5,10 @@ DigitalOut led(LED1);
 #ifdef TARGET_KL25Z
 DigitalOut out(PTA1);
 
-#elif TARGET_KL05Z
+#elif defined(TARGET_KL05Z)
 DigitalOut out(PTB1);
 
-#elif TARGET_KL46Z
+#elif defined(TARGET_KL46Z)
 DigitalOut out(PTA1);
 
 #elif defined(TARGET_LPC812)
@@ -23,18 +23,32 @@ DigitalOut out(p5);
 
 Timeout timer;
 
+#define MS_INTERVALS 1000
+
+void print_char(char c = '*')
+{
+    printf("%c", c);
+    fflush(stdout);
+}
+
 void toggleOff (void);
 
 void toggleOn (void) {
+    static int toggle_counter = 0;
     out = 1;
     led = 1;
-    timer.attach_us(toggleOff, 10000);
+    if (toggle_counter == MS_INTERVALS) {
+        print_char();
+        toggle_counter = 0;
+    }
+    toggle_counter++;
+    timer.attach_us(toggleOff, 500);
 }
 
 void toggleOff(void) {
     out = 0;
     led = 0;
-    timer.attach_us(toggleOn, 30000);
+    timer.attach_us(toggleOn, 500);
 }
 
 int main() {
