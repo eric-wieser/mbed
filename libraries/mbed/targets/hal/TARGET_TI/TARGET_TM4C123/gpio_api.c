@@ -22,7 +22,7 @@ uint32_t gpio_set(PinName pin) {
     // Enable GPIO peripheral clock
     SYSCTL->RCGC2 |= 1 << port_index;
 
-    return 1 << ((uint32_t) pin & 0xF);
+    return 1 << ((uint32_t) pin & 0x7);
 }
 
 void gpio_init(gpio_t *obj, PinName pin, PinDirection direction) {
