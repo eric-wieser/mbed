@@ -30,8 +30,10 @@ void us_ticker_init(void) {
 
 	uint32_t timer_clock = SystemCoreClock * 2; // determined experimentally!
 
-	// enable the timer
+	// enable the timer, and do a volatile read to prevent GCC optimizing, and
+	// accessing the timer too soon afterwards!
 	SYSCTL->RCGCWTIMER |= 1 << US_TICKER_TIMER_NUM;
+	uint32_t dummy = SYSCTL->RCGCWTIMER;
 
 	// Disable Timer A and Timer B
 	US_TICKER_TIMER->CTL &= ~(0x001 | 0x100);
