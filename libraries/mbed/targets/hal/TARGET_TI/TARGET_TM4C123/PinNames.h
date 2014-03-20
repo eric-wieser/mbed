@@ -39,7 +39,9 @@ typedef enum {
     PF_0 = 40, PF_1, PF_2, PF_3, PF_4,
 
     // Not connected
-    NC = (int)0xFFFFFFFF
+    NC = (int)0xFFFFFFFF,
+
+    LED1 = PF_2, LED4 = PF_3
 } PinName;
 
 typedef enum {
