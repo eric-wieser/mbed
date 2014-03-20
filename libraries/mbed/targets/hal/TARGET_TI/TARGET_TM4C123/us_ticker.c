@@ -30,13 +30,24 @@ void us_ticker_init(void) {
 
 	uint32_t timer_clock = SystemCoreClock * 2; // determined experimentally!
 
-	SYSCTL->RCGCWTIMER |= (1<<US_TICKER_TIMER_NUM); //Enable Timer 2 peripheral
-	US_TICKER_TIMER->CTL &= ~(0x001 | 0x100); // Disable Timer A and Timer B
-	US_TICKER_TIMER->CFG &= ~0xff; // Clear Timer A config
-	US_TICKER_TIMER->CFG |= 0x4; // Select an individual 32bit timer
-	US_TICKER_TIMER->TAMR |= 0x22; // Set periodic timer mode and enable match interrupt
-	US_TICKER_TIMER->TAPR = timer_clock/1000000 - 1; //Set 1us ticks 
-	US_TICKER_TIMER->CTL |= 0x1; // Enable the timer
+	// enable the timer
+	SYSCTL->RCGCWTIMER |= 1 << US_TICKER_TIMER_NUM;
+
+	// Disable Timer A and Timer B
+	US_TICKER_TIMER->CTL &= ~(0x001 | 0x100);
+
+	// Clear Timer A config, then select an individual 32bit timer
+	US_TICKER_TIMER->CFG &= ~0xff;
+	US_TICKER_TIMER->CFG |= 0x4;
+
+	// Set periodic timer mode and enable match interrupt
+	US_TICKER_TIMER->TAMR |= 0x22;
+
+	//Set 1us ticks
+	US_TICKER_TIMER->TAPR = timer_clock/1000000 - 1;
+
+	// Enable the timer
+	US_TICKER_TIMER->CTL |= 0x1;
 
 	NVIC_SetVector(US_TICKER_TIMER_IRQn, (uint32_t)us_ticker_irq_handler);
 	NVIC_EnableIRQ(US_TICKER_TIMER_IRQn);
