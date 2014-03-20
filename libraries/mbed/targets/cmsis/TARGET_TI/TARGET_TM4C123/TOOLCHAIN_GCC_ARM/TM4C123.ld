@@ -3,7 +3,7 @@
 /* Linker script to configure memory regions. */
 MEMORY
 { 
-  FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 256K
+  FLASH (rx) : ORIGIN = 0x00000000, LENGTH = 256K
   RAM (rwx) : ORIGIN = 0x2000026c, LENGTH = 0x7D94
 }
 
