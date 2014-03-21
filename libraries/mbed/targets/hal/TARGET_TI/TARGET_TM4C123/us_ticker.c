@@ -28,8 +28,6 @@ void us_ticker_init(void) {
 		return;
 	us_ticker_inited = 1;
 
-	uint32_t timer_clock = SystemCoreClock * 2; // determined experimentally!
-
 	// enable the timer, and do a volatile read to prevent GCC optimizing, and
 	// accessing the timer too soon afterwards!
 	SYSCTL->RCGCWTIMER |= 1 << US_TICKER_TIMER_NUM;
@@ -46,7 +44,7 @@ void us_ticker_init(void) {
 	US_TICKER_TIMER->TAMR |= 0x22;
 
 	//Set 1us ticks
-	US_TICKER_TIMER->TAPR = timer_clock/1000000 - 1;
+	US_TICKER_TIMER->TAPR = SystemCoreClock/1000000 - 1;
 
 	// Enable the timer
 	US_TICKER_TIMER->CTL |= 0x1;
