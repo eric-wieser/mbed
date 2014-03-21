@@ -42,6 +42,7 @@ class Uvision4(Exporter):
         'UBLOX_C027',
         'LPC1549',
         'LPC11U35_501',
+        'TM4C123',
     ]
 
     USING_MICROLIB = [
